@@ -1,7 +1,7 @@
 binary_semaphore mutex = 1;
 binary_semaphore IS_POSS = 1;
 binary_semaphore FCFS = 1;
-int READER_COUNT = 1;
+int READER_COUNT = 0;
 
 function Reader()
 {
