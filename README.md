@@ -1,3 +1,2 @@
-#THIS IS THE SUBMISSION FOR ASSIGNMENT 1 OF OPERATING SYSTEM.
-#WE HAVE A SOLUTION FOR STARVE FREE READERS AND WRITERS PROBLEM. 
-#CREDENTIALS - NAVIN KUMAR - 21114065 - n_kumar1@cs.iitr.ac.in 
+Submission of Assignment-1 Operating System. Solution for Starve free readers and writers problem.
+NAVIN KUMAR - 21114065 - n_kumar1@cs.iitr.ac.in 
