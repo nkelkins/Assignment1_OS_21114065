@@ -1,0 +1,28 @@
+The Readers-Writers Problem is a synchronization Problem which can be solved using semaphores. 
+In this problem there are 2 types of threads.
+1 --> Reader Thread -> The thread that only needs to read the resource. 
+2 --> Writer Thread -> The thread that changes the content of the resource. 
+We have to prevent Starvation which is that a single thread does not get the chance to access the resource.
+It is also given that multiple reader thread can access the shared resource one time but when there is a 
+writer thread, there should not be any other thread accessing that resource at that time. 
+
+To solve this problem-> 
+We take into account if the number of readers currently using the resource and we have denoted it by READER_COUNT.
+We then use a common binary semaphore A which defines if it is possible for another thread which is waiting to 
+read the resource. 
+If this is 1 then no other thread is reading or writing the resource. 
+if this is 0 then another thread is reading the resource it may be a writer or reader.
+In case of a writer we need to access the resource alone so we need to wait until the semaphore A is released. 
+In case of a reader other thread can also access the same resource at the same time hence if the reader is accessing 
+the resource we can add other readers to access the resource.
+We also use another binary semaphore mutex which ensures there is mutual exclusion when a reader is added and when a reader 
+is released. 
+Now in the writer section of our code we just have to check if no one else is accessing the resource and wait until no one 
+is accessing it I did it using the binary semaphore A. 
+Now in the reading section of our code we first have to check if someone is reading the resource or not if they another resource
+reading it and this is the time of the reader to get the access then we can directly increase the READER_COUNT by 1. 
+Now in the other part of the reading section we just decrease the READER_COUNT by 1 as one reader has finished reading the resource. 
+Now if the number of reader has reached 0 it means that a writer can also access the reasource hence we realease the binary semaphore A.
+By this we have overcome the starvation problem as when one writer has finished reading and a writer is in queue next the writer will access
+the resource first and then whoever comes later will access the resource. This is basically FCFS going on and hence there would not be any  
+Starvaion.

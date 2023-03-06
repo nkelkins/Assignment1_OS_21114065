@@ -1,0 +1,41 @@
+binary_semaphore mutex = 1;
+binary_semaphore IS_POSS = 1;
+binary_semaphore FCFS = 1;
+int READER_COUNT = 1;
+
+function Reader()
+{
+	wait(mutex); 					// Checks that only one opeartion changes the READER_COUNT.
+	wait(FCFS);	 					// Maintains the FCFS sequence.  
+
+	READER_COUNT = READER_COUNT + 1; 		// Increasing the READER_COUNT when a READER is added.
+
+	if(READER_COUNT == 1){
+		wait(IS_POSS); 				// Wait until no writer is writing the resource.
+	}
+
+	realease(FCFS); 					// Maintains FCFS sequence
+	realease(mutex); 
+
+	// Read the resource. 
+
+	wait(mutex);  					// Only one operation changes READER_COUNT.
+
+	READER_COUNT = READER_COUNT - 1; 		// Decreasing READER_COUNT when one reader has read the resource.
+
+	if(READER_COUNT == 0){
+		realease(IS_POSS); 			// No reader is accessing the resource.
+	} 
+
+	release(mutex);
+}
+
+function Writer(){	
+	wait(FCFS);						// Maintains FCFS sequence.
+	wait(IS_POSS);					// Wait until no reader or writer is accesing the resource.
+	
+	// Write the resource. 
+	
+	release(IS_POSS);					// No writer is accesing the resource.
+	release(FCFS);   					
+}
